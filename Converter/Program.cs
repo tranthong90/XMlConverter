@@ -35,9 +35,6 @@ namespace Converter
 
         private static void ConfigureServices(IServiceCollection serviceCollection)
         {
-            // TODO: add logging
-            //serviceCollection.AddSingleton(new LoggerFactory()
-            //    .AddConsole());
             serviceCollection.AddLogging();
 
             // build configuration

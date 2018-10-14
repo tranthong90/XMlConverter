@@ -38,6 +38,7 @@ namespace Converter
 
             await Task.WhenAll(backgroundTasks);
 
+            Console.WriteLine("Finished");
             Console.ReadLine();
         }
     }

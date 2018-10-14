@@ -39,7 +39,7 @@ namespace Converter.Processors
                      Console.WriteLine($"Thread 1. Processed and added this file: {file.Name} to queue");
 
                  });
-                await Task.Delay(100);
+                await Task.Delay(100); // to show task run concurrently 
             }
 
         }

@@ -18,20 +18,20 @@ namespace Converter.Processors
     public class ConvertFileProcessor : IConvertFileProcessor
     {
         private readonly ConverterConfig _config;
-        private readonly IXMLService _service;
-        public ConvertFileProcessor(IOptions<ConverterConfig> options, IXMLService service)
+        public ConvertFileProcessor(IOptions<ConverterConfig> options)
         {
             _config = options.Value;
-            _service = service;
         }
 
-        public async Task GetDataAndConvert(ConcurrentQueue<XMLFile> queue,string xsltString)
+        public async Task GetDataAndConvert(ConcurrentQueue<XMLFile> queue, string xsltString)
         {
-            while (true)
+            TimeSpan timeSpan = TimeSpan.FromSeconds(10); // auto stop if waiting for more than 10s
+            int elapsed = 0;
+            while (elapsed < timeSpan.TotalMilliseconds)
             {
                 if (queue.TryDequeue(out XMLFile file))
                 {
-
+                    elapsed = 0;
                     string htmlData = file.ConvertToHTML(xsltString);
 
                     string destinationPath = Path.Combine(_config.OutputFolder, file.GetHTMLFileName());
@@ -42,6 +42,10 @@ namespace Converter.Processors
                         await stream.FlushAsync();
                     }
                     Console.WriteLine($"Thread 2. Converted and write this file: {file.Name} to output folder");
+                }else
+                {
+                    elapsed += 1000;
+                    await Task.Delay(100); // to show task run concurrently 
                 }
             }
 
