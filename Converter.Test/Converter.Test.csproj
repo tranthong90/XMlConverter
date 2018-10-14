@@ -20,9 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="DataOutput\Comp_LON0100029.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="DataSource\Comp_AMS0100013.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -38,6 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="DataOutput\" />
     <Folder Include="Resources\" />
   </ItemGroup>
 

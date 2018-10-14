@@ -33,6 +33,9 @@ namespace Converter.Processors
                 {
                     elapsed = 0;
                     string htmlData = file.ConvertToHTML(xsltString);
+                    
+                    if (!Directory.Exists(_config.OutputFolder))
+                        Directory.CreateDirectory(_config.OutputFolder);
 
                     string destinationPath = Path.Combine(_config.OutputFolder, file.GetHTMLFileName());
 
@@ -42,7 +45,8 @@ namespace Converter.Processors
                         await stream.FlushAsync();
                     }
                     Console.WriteLine($"Thread 2. Converted and write this file: {file.Name} to output folder");
-                }else
+                }
+                else
                 {
                     elapsed += 1000;
                     await Task.Delay(100); // to show task run concurrently 
